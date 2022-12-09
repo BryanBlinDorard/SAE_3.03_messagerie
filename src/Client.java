@@ -17,14 +17,14 @@ public class Client {
             System.out.println("Veuillez entrer votre nom :");
             String nomClient = sc.nextLine();
 
-            // Envoie du nom du client au serveur
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
             out.writeUTF(nomClient);
 
-            // On récupère le message du serveur
-            DataInputStream in = new DataInputStream(client.getInputStream());
-            String message = in.readUTF();
-            System.out.println(message);
+            while (true) {
+                System.out.println("Veuillez entrer votre message :");
+                String message = sc.nextLine();
+                out.writeUTF(message);
+            }
         } catch (Exception e) {
             if (e instanceof UnknownHostException) {
                 System.out.println("Je ne trouve de serveur avec cette adresse IP");
