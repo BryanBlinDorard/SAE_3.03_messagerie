@@ -8,20 +8,26 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] args) throws UnknownHostException, IOException {
         try {
-            System.out.println("Bonjour, veuillez entrer l'adresse IP du serveur :");
+            // On se connecte au serveur
+            System.out.println("l'adresse IP du serveur :");
             Scanner sc = new Scanner(System.in);
             String sc1 = sc.nextLine();
-            Socket client = new Socket(sc1, 1234);
+            Socket client = new Socket(sc1, 1234); 
             System.out.println("Connexion au serveur reussie");
-
-            System.out.println("Veuillez entrer votre nom :");
+            
+            
+            System.out.println("Votre nom :");
             String nomClient = sc.nextLine();
-
+            
+            // On envoie le nom du client au serveur
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
             out.writeUTF(nomClient);
 
+            // On lance un thread qui va écouter les messages du serveur
+            DataInputStream in = new DataInputStream(client.getInputStream());
+            Thread t = new Thread(new Affichage(in));
+            t.start();
             while (true) {
-                System.out.println("Veuillez entrer votre message :");
                 String message = sc.nextLine();
                 out.writeUTF(message);
             }
