@@ -4,7 +4,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Server extends Thread{
+public class Server{
     public static void main(String[] args) throws IOException {
         // On crée un serveur sur le port 1234
         ServerSocket server = new ServerSocket(1234);
