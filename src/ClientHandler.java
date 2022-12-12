@@ -1,5 +1,6 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
@@ -34,7 +35,9 @@ public class ClientHandler implements Runnable{
                 }
             }
         } catch (IOException e) {
+            System.out.println("Un client vient de se déconnecter");
+        } catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
     }
 }
