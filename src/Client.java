@@ -29,7 +29,9 @@ public class Client {
             t.start();
             while (true) {
                 String message = sc.nextLine();
-                out.writeUTF(message);
+                if (message.length() > 0) {
+                    out.writeUTF(message);
+                }
             }
         } catch (Exception e) {
             if (e instanceof UnknownHostException) {
