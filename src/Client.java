@@ -9,15 +9,15 @@ public class Client {
     public static void main(String[] args) throws UnknownHostException, IOException {
         try {
             // On se connecte au serveur
-            System.out.println("l'adresse IP du serveur :");
-            Scanner sc = new Scanner(System.in);
-            String sc1 = sc.nextLine();
-            Socket client = new Socket(sc1, 1234); 
-            System.out.println("Connexion au serveur reussie");
+            System.out.println("Adresse IP du serveur :");
+            Scanner scanner = new Scanner(System.in);
+            String ipServeur = scanner.nextLine();
+            Socket client = new Socket(ipServeur, 1234); 
+            System.out.println("Connexion au serveur reussie !");
             
             
             System.out.println("Votre nom :");
-            String nomClient = sc.nextLine();
+            String nomClient = scanner.nextLine();
             
             // On envoie le nom du client au serveur
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
@@ -28,16 +28,16 @@ public class Client {
             Thread t = new Thread(new Affichage(in));
             t.start();
             while (true) {
-                String message = sc.nextLine();
+                String message = scanner.nextLine();
                 if (message.length() > 0) {
                     out.writeUTF(message);
                 }
             }
         } catch (Exception e) {
             if (e instanceof UnknownHostException) {
-                System.out.println("Je ne trouve de serveur avec cette adresse IP");
+                System.out.println("Je ne trouve de serveur avec cette adresse IP.");
             } else if (e instanceof IOException) {
-                System.out.println("Erreur de connexion");
+                System.out.println("Erreur de connexion.");
             }
         }
     }
