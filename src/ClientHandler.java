@@ -3,7 +3,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-
+import java.time.format.DateTimeFormatter; 
+import java.time.LocalDateTime; 
 
 public class ClientHandler implements Runnable{
     private Socket client;
@@ -21,15 +22,18 @@ public class ClientHandler implements Runnable{
             System.out.println(nomClient + " vient de se connecter.");
 
             while(true){
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
                 // On lit le message envoyé par le client
                 String message = in.readUTF();
-                System.out.println(nomClient + " : " + message);
+                String msg_a_envoyer = nomClient+ " - "+ dtf.format(now)+ " - " + message;
+                System.out.println(msg_a_envoyer);
 
                 // On envoie le message à tous les clients
                 for(Socket s : clients){
                     if(s != client){
                         DataOutputStream out = new DataOutputStream(s.getOutputStream());
-                        out.writeUTF(nomClient + " : " + message);
+                        out.writeUTF(msg_a_envoyer);
                     }
                 }
             }
