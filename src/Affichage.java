@@ -1,4 +1,5 @@
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.SocketException;
 
@@ -14,9 +15,11 @@ public class Affichage implements Runnable {
                 String message = in.readUTF();
                 System.out.println(message);
             } catch (Exception e) {
-                if (e instanceof SocketException) {
+                if (e instanceof EOFException || e instanceof SocketException) {
                     System.out.println("Le serveur a fermé la connexion");
                     System.exit(0);
+                } else if (e instanceof IOException) {
+                    e.printStackTrace();
                 }
             }
         }
