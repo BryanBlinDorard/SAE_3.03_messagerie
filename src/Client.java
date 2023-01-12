@@ -5,12 +5,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class ClientS {
+public class Client {
     private Socket socket;
     private String nameClient;
     private String salon;
 
-    public ClientS(String nameClient){
+    public Client(String nameClient){
         this.socket = null;
         this.nameClient = nameClient;
         this.salon = "";

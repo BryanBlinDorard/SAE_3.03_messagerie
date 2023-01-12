@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ExecutableClient {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        ClientS client1 = new ClientS("");
+        Client client1 = new Client("");
         Boolean connecte = true;
         client1.startClient();
         DataInputStream in = new DataInputStream(client1.getSocket().getInputStream());

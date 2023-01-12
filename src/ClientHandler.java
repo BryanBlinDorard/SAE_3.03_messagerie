@@ -8,10 +8,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime; 
 
 public class ClientHandler implements Runnable{
-    private ClientS client;
-    private List<ClientS> clients;
+    private Client client;
+    private List<Client> clients;
     private List<Salon> salons;
-    public ClientHandler(ClientS client, List<ClientS> clients, List<Salon> salons){
+    public ClientHandler(Client client, List<Client> clients, List<Salon> salons){
         this.client = client;
         this.clients = clients;
         this.salons = salons; 
@@ -45,7 +45,7 @@ public class ClientHandler implements Runnable{
             nomClient = in.readUTF();
             if (nomClient.length() > 0) {
                 Boolean isNameUsed = false;
-                for (ClientS client : clients) {
+                for (Client client : clients) {
                     String name = client.getNameClient();
                     if (name.equals(nomClient)) {
                         isNameUsed = true;
@@ -53,7 +53,7 @@ public class ClientHandler implements Runnable{
                     }
                 }
                 if (!isNameUsed) {
-                    for (ClientS client : clients) {
+                    for (Client client : clients) {
                         if (client.getSocket() == this.client.getSocket()) {
                             client.setNameClient(nomClient);
                         }
@@ -83,7 +83,7 @@ public class ClientHandler implements Runnable{
 
                 // si le client envoie /quit on le déconnecte
                 if (nomSalon.equals("/quit")) {
-                    for (ClientS client : clients) {
+                    for (Client client : clients) {
                         if (client.getSocket() == this.client.getSocket()) {
                             client.getSocket().close();
                             clients.remove(client);
@@ -98,7 +98,7 @@ public class ClientHandler implements Runnable{
                     for (Salon salon: this.salons){
                         if (salon.getNomSalon().equals(nomSalon)){
                             isSalonExist = true;
-                            for (ClientS client : clients) {
+                            for (Client client : clients) {
                                 if (client.getSocket() == this.client.getSocket()) {
                                     client.setSalon(nomSalon);
                                 }
@@ -112,7 +112,7 @@ public class ClientHandler implements Runnable{
                         // on crée le salon
                         Salon salon = new Salon(nomSalon,0);
                         salons.add(salon);
-                        for (ClientS client : clients) {
+                        for (Client client : clients) {
                             if (client.getSocket() == this.client.getSocket()) {
                                 client.setSalon(nomSalon);
                             }
@@ -125,7 +125,7 @@ public class ClientHandler implements Runnable{
                     // on crée le salon
                     Salon salon = new Salon(nomSalon,0);
                     salons.add(salon);
-                    for (ClientS client : clients) {
+                    for (Client client : clients) {
                         if (client.getSocket() == this.client.getSocket()) {
                             client.setSalon(nomSalon);
                         }
@@ -157,7 +157,7 @@ public class ClientHandler implements Runnable{
                     String msg_a_envoyer = "["+this.client.getSalon()+"]"+nomClient+ " - "+ dtf.format(now)+ " - " + message;
                     System.out.println(msg_a_envoyer);
                     // On envoie le message à tous les clients
-                    for (ClientS client : clients) {
+                    for (Client client : clients) {
                         Socket keySocket = client.getSocket();
                         if (keySocket != this.client.getSocket() && client.getSalon().equals(this.client.getSalon())) {
                             DataOutputStream out2 = new DataOutputStream(keySocket.getOutputStream());
@@ -172,7 +172,7 @@ public class ClientHandler implements Runnable{
             }
         } catch (IOException e) {
             System.out.println("Un client vient de se déconnecter.");
-            for (ClientS client : clients) {
+            for (Client client : clients) {
                 Socket keySocket = client.getSocket();
                 if (keySocket == this.client.getSocket()) {
                     clients.remove(client);

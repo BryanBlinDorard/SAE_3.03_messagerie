@@ -28,7 +28,7 @@ public class Affichage implements Runnable {
                     } else if (message.equals("new")) {
                         System.out.println("Le salon a été créé");
                     } else if (message.equals("clear")) {
-                        ClientS.clearTerminal();
+                        Client.clearTerminal();
                     }
                 }
             } catch (Exception e) {

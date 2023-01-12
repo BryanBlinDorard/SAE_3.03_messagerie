@@ -11,7 +11,7 @@ public class ExecutableServer {
         ServerSocket serveur = new ServerSocket(1234);
 
         // On crée une liste qui va contenir les clients
-        List<ClientS> clients = new ArrayList<ClientS>();
+        List<Client> clients = new ArrayList<Client>();
         System.out.println("Serveur lancé, en attente de connexion...");
 
         List<Salon> salons = new ArrayList<Salon>();
@@ -19,7 +19,7 @@ public class ExecutableServer {
             // On attend une connexion d'un client
             Socket socket = serveur.accept();
             System.out.println("Client connecté");
-            ClientS client = new ClientS("");
+            Client client = new Client("");
             client.setSocket(socket);
             clients.add(client);
 
