@@ -14,7 +14,10 @@ public class ExecutableServer {
         List<Client> clients = new ArrayList<Client>();
         System.out.println("Serveur lancé, en attente de connexion...");
 
+        // On crée une liste qui va contenir les salons
         List<Salon> salons = new ArrayList<Salon>();
+
+
         while(true){
             // On attend une connexion d'un client
             Socket socket = serveur.accept();

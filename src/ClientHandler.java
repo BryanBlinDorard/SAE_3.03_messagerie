@@ -110,7 +110,7 @@ public class ClientHandler implements Runnable{
                     // si le salon n'existe pas
                     if (!isSalonExist) {
                         // on crée le salon
-                        Salon salon = new Salon(nomSalon,0);
+                        Salon salon = new Salon(nomSalon);
                         salons.add(salon);
                         for (Client client : clients) {
                             if (client.getSocket() == this.client.getSocket()) {
@@ -123,7 +123,7 @@ public class ClientHandler implements Runnable{
                 } else {
                     // si il n'y a pas de salon
                     // on crée le salon
-                    Salon salon = new Salon(nomSalon,0);
+                    Salon salon = new Salon(nomSalon);
                     salons.add(salon);
                     for (Client client : clients) {
                         if (client.getSocket() == this.client.getSocket()) {
@@ -149,12 +149,14 @@ public class ClientHandler implements Runnable{
             changerSalon(in,out);
             
             while(true){
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+
                 LocalDateTime now = LocalDateTime.now();
                 // On lit le message envoyé par le client
                 String message = in.readUTF();
                 if (!message.startsWith("/")) {
-                    String msg_a_envoyer = "["+this.client.getSalon()+"]"+nomClient+ " - "+ dtf.format(now)+ " - " + message;
+                    String msg_a_envoyer = dtf.format(now)+ " ["+this.client.getSalon()+"] "+nomClient+ " - " + message;
                     System.out.println(msg_a_envoyer);
                     // On envoie le message à tous les clients
                     for (Client client : clients) {
