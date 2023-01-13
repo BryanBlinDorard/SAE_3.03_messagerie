@@ -46,6 +46,6 @@ public class Salon {
     
     @Override
     public String toString() {
-        return this.nomSalon + " créé il y a (" + tempsEntreCreationEtMaintenant()+ ")";
+        return this.nomSalon + " (créé il y a " + tempsEntreCreationEtMaintenant()+ ")";
     }
 }
