@@ -189,7 +189,29 @@ public class ClientHandler implements Runnable{
                 } else if (message.startsWith("/")) {
                     if (message.equals("/quit")) {
                         changerSalon(in, out);
-                    }   
+                    } else if (message.equals("/nbuser")) {
+                        // donne le nombre de personne dans le salon courant
+                        int nbUser = 0;
+                        for (Client client : clients) {
+                            if (client.getSalon().equals(this.client.getSalon())) {
+                                nbUser++;
+                            }
+                        }
+                        out.writeUTF("Il y a " + nbUser + " personnes dans le salon " + this.client.getSalon());
+                    } else if (message.equals("/uptime")) {
+                        // dit depuis combien de temps le salon est ouvert
+                        String salon_du_client = this.client.getSalon();
+                        for (Salon salon : salons) {
+                            if (salon.getNomSalon().equals(salon_du_client)) {
+                                out.writeUTF("Le salon " + salon_du_client + " est ouvert depuis " + salon.tempsEntreCreationEtMaintenant());
+                            }
+                        }
+                    } else if (message.equals("/user")) {
+                        // donne le nombre de personne connectée sur le serveur
+                        out.writeUTF("Il y a " + clients.size() + " personnes connectées sur le serveur");
+                    } else {
+                        out.writeUTF("Commande inconnue");
+                    }
                 }
             }
         } catch (IOException e) {
