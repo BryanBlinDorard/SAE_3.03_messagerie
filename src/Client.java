@@ -66,10 +66,10 @@ public class Client {
     public void setConnexion(){
         clearTerminal();
         // On se connecte au serveur
-        System.out.println("Adresse IP du serveur :");
+        System.out.println("\u001b[4mAdresse IP du serveur :\u001b[0m");
         Scanner scanner = new Scanner(System.in);
         String ipServeur = scanner.nextLine();
-        System.out.println("Port du serveur :");
+        System.out.println("\u001b[4mPort du serveur :\u001b[0m");
         int portServeur = scanner.nextInt();
         scanner.nextLine();
 
@@ -111,7 +111,7 @@ public class Client {
         DataOutputStream out = new DataOutputStream(this.getSocket().getOutputStream());
         while (!isNameSet) {
             // On demande le nom du client
-            System.out.println("Nom du client :");
+            System.out.println("\u001b[4mNom du client :\u001b[0m");
             nomClient = scanner.nextLine();
             
             // On envoie le nom au serveur
@@ -122,13 +122,13 @@ public class Client {
                 if (isNameUsed.equals("true")) {
                     // Si le nom est déjà utilisé, on recommence
                     clearTerminal();
-                    System.out.println("Ce nom est déjà utilisé.");
+                    System.out.println("\u001b[31;1mCe nom est déjà utilisé.\u001b[0m");
                 } else {
                     // Sinon, on enregistre le nom du client
                     isNameSet = true;
                     this.setNameClient(nomClient);
                     clearTerminal();
-                    System.out.println("Nom du client enregistré.");
+                    System.out.println("\u001b[34;1mNom du client enregistré.\u001b[0m");
                 }
             }
         }

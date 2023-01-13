@@ -20,7 +20,7 @@ public class ExecutableClient {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Déconnexion forcé du serveur, fermeture du client");
+            System.out.println("\u001b[31;1mDéconnexion forcé du serveur, fermeture du client\u001b[0m");
         }
     }
 }

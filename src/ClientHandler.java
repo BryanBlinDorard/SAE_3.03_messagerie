@@ -26,14 +26,14 @@ public class ClientHandler implements Runnable{
 
         // On affiche les salons
         if (salons.size() > 0) {
-            out.writeUTF("Salons disponibles :");
+            out.writeUTF("\u001b[34;1m\u001b[4mSalons disponibles :\u001b[0m");
             for (Salon salon : salons) {
-                out.writeUTF("-"+salon);
+                out.writeUTF("\u001b[32m-"+salon+"\u001b[0m");
             }
         } else {
-            out.writeUTF("Il n'y a pas de salon, créez-en un !");
+            out.writeUTF("\u001b[34;1mIl n'y a pas de salon, créez-en un !\u001b[0m");
         }
-        out.writeUTF("(si vous faites /quit ici, vous serez déconnecté)");
+        out.writeUTF("\u001b[34;1m(si vous faites /quit ici, vous serez déconnecté)\u001b[0m");
     }
 
 
@@ -135,7 +135,7 @@ public class ClientHandler implements Runnable{
                 }
             }
         }
-        out.writeUTF("Vous êtes dans le salon "+nomSalon);
+        out.writeUTF("\u001b[34;1mVous êtes dans le salon "+nomSalon+"\u001b[0m");
     }
     
     public void run(){
@@ -158,14 +158,34 @@ public class ClientHandler implements Runnable{
                 if (!message.startsWith("/")) {
                     String msg_a_envoyer = dtf.format(now)+ " ["+this.client.getSalon()+"] "+nomClient+ " - " + message;
                     System.out.println(msg_a_envoyer);
-                    // On envoie le message à tous les clients
-                    for (Client client : clients) {
-                        Socket keySocket = client.getSocket();
-                        if (keySocket != this.client.getSocket() && client.getSalon().equals(this.client.getSalon())) {
-                            DataOutputStream out2 = new DataOutputStream(keySocket.getOutputStream());
-                            out2.writeUTF(msg_a_envoyer);
+
+                    // message privé -> on envoie le message uniquement au client mentionné
+                    boolean contientEspace = false;
+                    for (int i=0; i<message.length(); i++) {
+                        if (message.charAt(i) == ' ') {
+                            contientEspace = true;
                         }
                     }
+                    if (message.startsWith("@") && contientEspace) {
+                        String pseudo = message.substring(message.indexOf("@")+1, message.indexOf(" "));
+                        for (Client client: clients) {
+                            if (pseudo.equals(client.getNameClient())) {
+                                DataOutputStream out3 = new DataOutputStream(client.getSocket().getOutputStream());
+                                out3.writeUTF("MP" + this.client.getNameClient() + " vous chuchotte : " + message.substring(message.indexOf(" ")+1));
+                            }
+                        }
+                    }else{
+                        // On envoie le message à tous les clients
+                        for (Client client : clients) {
+                            Socket keySocket = client.getSocket();
+                            if (keySocket != this.client.getSocket() && client.getSalon().equals(this.client.getSalon())) {
+                                DataOutputStream out2 = new DataOutputStream(keySocket.getOutputStream());
+                                out2.writeUTF(msg_a_envoyer);
+                            }
+                        }
+                    }
+
+                    
                 } else if (message.startsWith("/")) {
                     if (message.equals("/quit")) {
                         changerSalon(in, out);
@@ -181,6 +201,7 @@ public class ClientHandler implements Runnable{
                     break;
                 }
             }
+            System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println("Un client vient de se déconnecter.");
         }
