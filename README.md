@@ -1,16 +1,20 @@
-# SAE_3.05_messagerie
-Le but de cette SAE est de développer une application client-serveur de messagerie instantanée, avec groupe de discussions, où les utilisateurs peuvent s’échanger des messages textuels.
+# SAE_3.05_messagerie - Un système de messagerie instantanée en Java
+
+Notre SAE vous permet de discuter sur une application client-serveur de messagerie instantanée, avec des fonctionnalités de groupe de discussion(channel), où les utilisateurs peuvent s’échanger des messages textuels en temps réel. 
 
 ## Prérequis
-- Java
+- Java 8 ou version ultérieure
 
 ## Installation
-- Cloner le projet
-- Compiler le projet avec la commande `javac *.java`
-- Lancer le serveur avec la commande `java Serveur`
-- Lancer le client avec la commande `java Client`
+1. Cloner le projet depuis GitHub
+2. Compiler le projet en utilisant la commande `javac *.java` dans le répertoire du projet
+3. Lancer le serveur en utilisant la commande `java ExecutableServeur`
+4. Lancer le client en utilisant la commande `java ExecutableClient`
 
 ## Utilisation
-- Lancer le serveur
-- Lancer le client
-- Saisir un pseudo
+1. Lancer le serveur en utilisant la commande `java ExecutableServeur`
+2. Lancer le client en utilisant la commande `java ExecutableClient`
+3. Saisir l'ip du serveur (localhost si vous le faite en local)
+4. Saisir le port (1234 si ça n'a pas été changé)
+5. Saisir un pseudo pour vous identifier auprès des autres utilisateurs
+6. Créer ou rejoindre des groupes de discussion pour échanger des messages.
