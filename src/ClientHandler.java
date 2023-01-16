@@ -223,7 +223,6 @@ public class ClientHandler implements Runnable{
                     break;
                 }
             }
-            System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println("Un client vient de se déconnecter.");
         }
