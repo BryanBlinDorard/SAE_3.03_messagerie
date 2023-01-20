@@ -1,4 +1,4 @@
-# SAE_3.05_messagerie - Un système de messagerie instantanée en Java
+# SAE_3.03_messagerie - Un système de messagerie instantanée en Java
 
 Notre SAE vous permet de discuter sur une application client-serveur de messagerie instantanée, avec des fonctionnalités de groupe de discussion(channel), où les utilisateurs peuvent s’échanger des messages textuels en temps réel. 
 
