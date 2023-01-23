@@ -4,11 +4,17 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class ExecutableServer {
     public static void main(String[] args) throws IOException {
-        // On crée un serveur sur le port 1234
-        ServerSocket serveur = new ServerSocket(1234);
+        // demande le port
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrez le port : ");
+        int port = sc.nextInt();
+        sc.close();
+
+        ServerSocket serveur = new ServerSocket(port);
 
         // On crée une liste qui va contenir les clients
         List<Client> clients = new ArrayList<Client>();

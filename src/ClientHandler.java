@@ -209,10 +209,16 @@ public class ClientHandler implements Runnable{
                     } else if (message.equals("/user")) {
                         // donne le nombre de personne connectée sur le serveur
                         out.writeUTF("Il y a " + clients.size() + " personnes connectées sur le serveur");
+                    } else if (message.equals("/help")) {
+                        out.writeUTF("Liste des commandes :");
+                        out.writeUTF("/quit : permet de changer de salon");
+                        out.writeUTF("/nbuser : donne le nombre de personne dans le salon courant");
+                        out.writeUTF("/uptime : dit depuis combien de temps le salon est ouvert");
+                        out.writeUTF("/user : donne le nombre de personne connectée sur le serveur");
                     } else {
                         out.writeUTF("Commande inconnue");
                     }
-                }
+                } 
             }
         } catch (IOException e) {
             System.out.println("Un client vient de se déconnecter.");

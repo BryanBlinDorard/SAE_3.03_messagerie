@@ -101,6 +101,7 @@ public class Client {
     }
 
     public void demanderNom() throws IOException{
+        
         clearTerminal();
         Scanner scanner = new Scanner(System.in);
         
@@ -118,7 +119,6 @@ public class Client {
             if (nomClient.length() > 0) {
                 out.writeUTF(nomClient);
                 String isNameUsed = in.readUTF();
-
                 if (isNameUsed.equals("true")) {
                     // Si le nom est déjà utilisé, on recommence
                     clearTerminal();
